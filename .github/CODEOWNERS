@@ -1,0 +1,20 @@
+# CODEOWNERS 文件
+# 定义代码审查者
+# 更多信息：https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# 全局默认审查者
+* @XW123-ART
+
+# GitHub Actions 配置
+/.github/workflows/ @XW123-ART
+
+# 文档
+/docs/ @XW123-ART
+/*.md @XW123-ART
+
+# 页面对象（核心代码）
+/pages/ @XW123-ART
+/playwright_tests/pages/ @XW123-ART
+
+# 测试数据
+/data/ @XW123-ART
