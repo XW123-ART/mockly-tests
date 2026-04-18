@@ -2,11 +2,7 @@
 生成Allure测试报告
 
 使用方法:
-    1. 先生成报告: python generate_allure_report.py
-    2. 查看报告: allure serve ./allure-results
-
-或者:
-    python generate_allure_report.py --serve
+    python generate_allure_report.py
 """
 
 import subprocess
@@ -22,70 +18,38 @@ def main():
     print("="*60)
     print()
 
-    # 检查allure是否安装
-    print("[检查] 检查allure命令行工具...")
-    result = subprocess.run(["allure", "--version"], capture_output=True)
-    if result.returncode != 0:
-        print("[警告] 未检测到allure命令行工具!")
-        print()
-        print("请先安装Allure:")
-        print("1. 下载: https://github.com/allure-framework/allure2/releases")
-        print("2. 解压并添加bin目录到系统环境变量PATH")
-        print("3. 重启PyCharm或命令行窗口")
-        print()
-        print("或者使用pytest-html生成简单报告:")
-        print("  pip install pytest-html")
-        print("  pytest --html=report.html")
+    # 检查allure-results目录是否存在
+    if not os.path.exists(os.path.join(current_dir, "allure-results")):
+        print("[错误] allure-results目录不存在!")
+        print("请先运行测试生成结果:")
+        print("  python -m pytest tests/ --alluredir=allure-results")
         return 1
 
-    version = result.stdout.decode().strip()
-    print(f"[检查] Allure版本: {version}")
-    print()
-
-    # 运行测试生成allure结果
-    print("[步骤1] 运行测试并生成Allure数据...")
+    # 生成静态HTML报告
+    print("[步骤1] 生成静态HTML报告...")
     print()
 
     cmd = [
-        sys.executable, "-m", "pytest",
-        "tests/",
-        "-v",
-        "--alluredir=./allure-results",
-        "--clean-alluredir"
+        "allure", "generate", "./allure-results", 
+        "-o", "./allure-report", 
+        "--clean"
     ]
 
     print(f"执行命令: {' '.join(cmd)}")
     print()
 
-    subprocess.run(cmd, cwd=current_dir)
+    result = subprocess.run(cmd, cwd=current_dir, capture_output=True, text=True)
+    if result.returncode != 0:
+        print("[错误] 生成报告失败:")
+        print(result.stderr)
+        return 1
 
+    print("[完成] 报告生成成功!")
+    print(f"报告位置: {os.path.join(current_dir, 'allure-report')}")
     print()
-    print("[完成] 测试运行完成!")
+    print("在浏览器中打开以下文件查看报告:")
+    print(f"  {os.path.join(current_dir, 'allure-report', 'index.html')}")
     print()
-
-    # 询问用户如何查看报告
-    print("="*60)
-    print("查看报告的方式:")
-    print("="*60)
-    print()
-    print("方式1 - 启动本地服务器查看(推荐):")
-    print("  allure serve ./allure-results")
-    print()
-    print("方式2 - 生成静态HTML文件:")
-    print("  allure generate ./allure-results -o ./allure-report --clean")
-    print("  然后在浏览器打开 allure-report/index.html")
-    print()
-    print("方式3 - 使用本脚本自动打开:")
-    print("  python generate_allure_report.py --serve")
-    print()
-
-    # 如果带--serve参数，自动启动服务
-    if len(sys.argv) > 1 and sys.argv[1] == "--serve":
-        print("[步骤2] 启动Allure报告服务...")
-        print("报告地址: http://localhost:8080")
-        print("按 Ctrl+C 停止服务")
-        print()
-        subprocess.run(["allure", "serve", "./allure-results"], cwd=current_dir)
 
     return 0
 
