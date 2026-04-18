@@ -247,7 +247,8 @@ allure serve allure-results
   如果这个项目对你有帮助，请给我们一颗 ⭐️
 </p>
 
+cicici
+
 <br />
 
-测试cicd测试cicd
 # CI trigger test
