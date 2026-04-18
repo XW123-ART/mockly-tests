@@ -1,0 +1,26 @@
+{
+  "test_cases": [
+    {
+      "name": "生成简单对象",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "name": {"type": "string"}
+        }
+      },
+      "count": 1
+    },
+    {
+      "name": "生成多个对象",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "username": {"type": "string"},
+          "age": {"type": "integer", "minimum": 18, "maximum": 60}
+        }
+      },
+      "count": 3
+    }
+  ]
+}

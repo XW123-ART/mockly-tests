@@ -1,0 +1,68 @@
+{
+  "test_cases": [
+    {
+      "name": "启用智能覆盖模式",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer", "minimum": 1, "maximum": 100},
+          "status": {"type": "string", "enum": ["active", "inactive"]}
+        }
+      },
+      "count": 5,
+      "options": {
+        "smart": true,
+        "mutate": false,
+        "report": false
+      }
+    },
+    {
+      "name": "生成变异数据",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "age": {"type": "integer", "minimum": 0, "maximum": 120}
+        }
+      },
+      "count": 2,
+      "options": {
+        "smart": false,
+        "mutate": true,
+        "report": false
+      }
+    },
+    {
+      "name": "生成覆盖率报告",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {"type": "integer"},
+          "role": {"type": "string", "enum": ["admin", "user", "guest"]}
+        }
+      },
+      "count": 3,
+      "options": {
+        "smart": false,
+        "mutate": false,
+        "report": true
+      }
+    },
+    {
+      "name": "同时启用多个选项",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "product_id": {"type": "integer", "minimum": 1},
+          "category": {"type": "string", "enum": ["A", "B", "C"]}
+        }
+      },
+      "count": 3,
+      "options": {
+        "smart": true,
+        "mutate": true,
+        "report": true
+      }
+    }
+  ]
+}

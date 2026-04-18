@@ -1,0 +1,34 @@
+{
+  "test_cases": [
+    {
+      "name": "正确用户名密码",
+      "username": "admin",
+      "password": "123456",
+      "expected": "success"
+    },
+    {
+      "name": "错误密码",
+      "username": "admin",
+      "password": "wrongpass",
+      "expected": "fail"
+    },
+    {
+      "name": "不存在的用户",
+      "username": "notexist",
+      "password": "123456",
+      "expected": "fail"
+    },
+    {
+      "name": "用户名为空",
+      "username": "",
+      "password": "123456",
+      "expected": "fail"
+    },
+    {
+      "name": "密码为空",
+      "username": "admin",
+      "password": "",
+      "expected": "fail"
+    }
+  ]
+}

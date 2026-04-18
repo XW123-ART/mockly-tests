@@ -1,0 +1,42 @@
+{
+  "test_cases": [
+    {
+      "name": "JSON格式输出",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer"},
+          "name": {"type": "string"},
+          "email": {"type": "string"}
+        }
+      },
+      "count": 2,
+      "format": "json"
+    },
+    {
+      "name": "CSV格式输出",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "username": {"type": "string"},
+          "age": {"type": "integer"}
+        }
+      },
+      "count": 3,
+      "format": "csv"
+    },
+    {
+      "name": "SQL格式输出",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "user_id": {"type": "integer"},
+          "user_name": {"type": "string"}
+        }
+      },
+      "count": 2,
+      "format": "sql",
+      "table": "users"
+    }
+  ]
+}
