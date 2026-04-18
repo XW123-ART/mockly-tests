@@ -17,7 +17,7 @@
   基于 Selenium 和 Playwright 的 Web 自动化测试框架，集成 Allure 测试报告
 </p>
 
----
+***
 
 ## 📋 项目结构
 
@@ -63,12 +63,14 @@ mockly-tests/
 ### 安装步骤
 
 1. 克隆仓库
+
 ```bash
 git clone https://github.com/XW123-ART/mockly-tests.git
 cd mockly-tests
 ```
 
-2. 创建虚拟环境
+1. 创建虚拟环境
+
 ```bash
 python -m venv venv
 
@@ -79,7 +81,8 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-3. 安装依赖
+1. 安装依赖
+
 ```bash
 pip install -r requirements.txt
 
@@ -87,7 +90,8 @@ pip install -r requirements.txt
 playwright install
 ```
 
-4. 运行测试
+1. 运行测试
+
 ```bash
 # 运行所有测试
 pytest tests/ -v
@@ -104,13 +108,13 @@ allure serve allure-results
 
 本项目采用 **Git Flow** 分支模型：
 
-| 分支 | 用途 | 保护级别 |
-|------|------|----------|
-| `main` | 生产环境代码 | 🔴 严格保护 |
-| `develop` | 开发集成分支 | 🟡 保护 |
-| `feature/*` | 新功能开发 | 🟢 无保护 |
-| `bugfix/*` | Bug 修复 | 🟢 无保护 |
-| `hotfix/*` | 紧急修复 | 🟢 无保护 |
+| 分支          | 用途     | 保护级别    |
+| ----------- | ------ | ------- |
+| `main`      | 生产环境代码 | 🔴 严格保护 |
+| `develop`   | 开发集成分支 | 🟡 保护   |
+| `feature/*` | 新功能开发  | 🟢 无保护  |
+| `bugfix/*`  | Bug 修复 | 🟢 无保护  |
+| `hotfix/*`  | 紧急修复   | 🟢 无保护  |
 
 ### 工作流程
 
@@ -192,7 +196,7 @@ allure serve allure-results
 
 ### 在线报告
 
-访问：[https://XW123-ART.github.io/mockly-tests/](https://XW123-ART.github.io/mockly-tests/)
+访问：<https://XW123-ART.github.io/mockly-tests/>
 
 ### 报告特性
 
@@ -206,8 +210,8 @@ allure serve allure-results
 我们欢迎所有形式的贡献！请查看：
 
 - [CONTRIBUTING.md](./CONTRIBUTING.md) - 详细的贡献指南
-- [docs/BRANCH_PROTECTION_SETUP.md](./docs/BRANCH_PROTECTION_SETUP.md) - 分支保护设置
-- [docs/CICD_SETUP.md](./docs/CICD_SETUP.md) - CI/CD 配置说明
+- [docs/BRANCH\_PROTECTION\_SETUP.md](./docs/BRANCH_PROTECTION_SETUP.md) - 分支保护设置
+- [docs/CICD\_SETUP.md](./docs/CICD_SETUP.md) - CI/CD 配置说明
 
 ### 提交 PR 前检查清单
 
@@ -219,15 +223,15 @@ allure serve allure-results
 
 ## 📝 技术栈
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Python | 3.11/3.12 | 编程语言 |
-| pytest | 9.0+ | 测试框架 |
-| Selenium | 4.41+ | Web 自动化 |
-| Playwright | 1.51+ | Web 自动化 |
-| Allure | 2.15+ | 测试报告 |
-| Black | 24.3+ | 代码格式化 |
-| flake8 | 7.0+ | 代码检查 |
+| 技术         | 版本        | 用途      |
+| ---------- | --------- | ------- |
+| Python     | 3.11/3.12 | 编程语言    |
+| pytest     | 9.0+      | 测试框架    |
+| Selenium   | 4.41+     | Web 自动化 |
+| Playwright | 1.51+     | Web 自动化 |
+| Allure     | 2.15+     | 测试报告    |
+| Black      | 24.3+     | 代码格式化   |
+| flake8     | 7.0+      | 代码检查    |
 
 ## 📄 许可证
 
@@ -237,8 +241,12 @@ allure serve allure-results
 
 - **XW123-ART** - 项目维护者
 
----
+***
 
 <p align="center">
   如果这个项目对你有帮助，请给我们一颗 ⭐️
 </p>
+
+<br />
+
+测试cicd
