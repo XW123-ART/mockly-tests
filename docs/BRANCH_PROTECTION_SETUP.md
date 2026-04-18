@@ -11,9 +11,9 @@
 3. 在左侧菜单选择 **Branches**
 4. 点击 **Add rule** 按钮
 
-### 2. 配置 main/master 分支保护
+### 2. 配置 master 分支保护
 
-**Branch name pattern:** `main` 或 `master`
+**Branch name pattern:** `master`
 
 #### ✅ 勾选以下选项：
 
@@ -76,7 +76,7 @@
 
 | 操作 | 保护前 | 保护后 |
 |------|--------|--------|
-| 直接 push 到 main | ✅ 允许 | ❌ 禁止 |
+| 直接 push 到 master | ✅ 允许 | ❌ 禁止 |
 | 直接 push 到 develop | ✅ 允许 | ❌ 禁止 |
 | 无 Review 合并 | ✅ 允许 | ❌ 禁止 |
 | CI 失败合并 | ✅ 允许 | ❌ 禁止 |
@@ -84,16 +84,16 @@
 
 ## 📝 验证保护是否生效
 
-### 测试 1：直接 Push 到 main
+### 测试 1：直接 Push 到 master
 
 ```bash
- git checkout main
- git pull origin main
+ git checkout master
+ git pull origin master
  # 做一些修改
  echo "test" >> README.md
  git add .
- git commit -m "test: direct push to main"
- git push origin main
+ git commit -m "test: direct push to master"
+ git push origin master
 ```
 
 **预期结果：**
@@ -123,8 +123,8 @@ remote: error: Changes must be made through a pull request.
 # 登录 GitHub CLI
 gh auth login
 
-# 设置 main 分支保护
-gh api repos/XW123-ART/mockly-tests/branches/main/protection \
+# 设置 master 分支保护
+gh api repos/XW123-ART/mockly-tests/branches/master/protection \
   --method PUT \
   --input - <<EOF
 {
@@ -165,7 +165,7 @@ EOF
 
 ## 📊 分支保护配置检查清单
 
-- [ ] main/master 分支规则已创建
+- [ ] master 分支规则已创建
 - [ ] develop 分支规则已创建
 - [ ] 要求 1 个 PR Review
 - [ ] 要求 CI 状态检查通过

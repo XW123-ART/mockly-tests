@@ -8,7 +8,7 @@
     <img src="https://img.shields.io/badge/Allure%20Report-View-9cf.svg" alt="Allure Report">
   </a>
   <img src="https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg" alt="Python Version">
-  <a href="https://github.com/XW123-ART/mockly-tests/blob/main/LICENSE">
+  <a href="https://github.com/XW123-ART/mockly-tests/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
   </a>
 </p>
@@ -110,7 +110,7 @@ allure serve allure-results
 
 | 分支          | 用途     | 保护级别    |
 | ----------- | ------ | ------- |
-| `main`      | 生产环境代码 | 🔴 严格保护 |
+| `master`    | 生产环境代码 | 🔴 严格保护 |
 | `develop`   | 开发集成分支 | 🟡 保护   |
 | `feature/*` | 新功能开发  | 🟢 无保护  |
 | `bugfix/*`  | Bug 修复 | 🟢 无保护  |

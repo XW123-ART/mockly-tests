@@ -20,8 +20,8 @@
 
 | 事件 | 目标分支 | 行为 |
 |------|----------|------|
-| `push` | `main`, `master`, `develop`, `feature/*`, `bugfix/*` | 运行完整流水线 |
-| `pull_request` | `main`, `master`, `develop` | 运行完整流水线 |
+| `push` | `master`, `develop`, `feature/*`, `bugfix/*` | 运行完整流水线 |
+| `pull_request` | `master`, `develop` | 运行完整流水线 |
 
 ## 🛠️ 作业 (Jobs) 说明
 

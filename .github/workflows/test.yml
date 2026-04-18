@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master, develop, 'feature/**' ]
+    branches: [ master, develop, 'feature/**' ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ master, develop ]
 
 jobs:
   code-quality:
@@ -65,7 +65,7 @@ jobs:
         allure_results: allure-results
         allure_history: allure-history
     - uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
