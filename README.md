@@ -250,3 +250,4 @@ allure serve allure-results
 <br />
 
 测试cicd测试cicd
+# CI trigger test
