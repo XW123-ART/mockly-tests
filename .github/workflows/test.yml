@@ -88,21 +88,18 @@ jobs:
     - name: Prepare Allure Results
       run: |
         mkdir -p allure-results
-        echo "Artifacts directory structure:"
-        find artifacts -type f 2>/dev/null | head -30 || echo "No artifacts found"
-        echo "Copying allure results..."
-        cp artifacts/*.json allure-results/ 2>/dev/null || \
-        cp artifacts/allure-results*/allure-results*/*.json allure-results/ 2>/dev/null || \
         find artifacts -name "*.json" -exec cp {} allure-results/ \; 2>/dev/null || true
-        echo "Allure results files:"
         ls -la allure-results/
+        echo "Total result files: $(ls allure-results/*.json 2>/dev/null | wc -l)"
     - uses: simple-elf/allure-report-action@master
       with:
         allure_results: allure-results
         allure_history: allure-history
+        keep_reports: 20
     - uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: allure-history
+        force_orphan: true
