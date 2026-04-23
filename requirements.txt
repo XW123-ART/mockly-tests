@@ -1,3 +1,18 @@
-pytest==9.0.2
-selenium==4.41.0
+# 测试框架
+pytest==8.3.5
+pytest-html==4.1.1
 allure-pytest==2.15.3
+
+# Web 自动化
+selenium==4.27.0
+pytest-playwright==0.7.0
+playwright==1.49.0
+
+# 代码质量（开发依赖）
+black==24.3.0
+flake8==7.0.0
+isort==5.13.2
+
+# 工具库
+requests==2.32.3
+python-dotenv==1.0.1

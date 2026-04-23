@@ -1,46 +1,72 @@
-name: SmartDataGen CI/CD
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ master, develop, 'feature/**' ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ master, develop ]
 
 jobs:
-  test:
-    runs-on: windows-latest
-    
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    
-    - name: Create virtual environment
-      run: python -m venv venv
-    
-    - name: Install dependencies
-      run: |
-        venv\Scripts\activate
-        pip install -r requirements.txt
-    
-    - name: Run tests with Allure
-      run: |
-        venv\Scripts\activate
-        python -m pytest tests/ --alluredir=allure-results
-    
-    - name: Generate Allure report
-      run: |
-        venv\Scripts\activate
-        python generate_allure_report.py
-    
-    - name: Deploy Allure report to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+    - run: pip install black flake8
+    - run: black --check . || true
+    - run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: code-quality
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
+    - run: pip install -r requirements.txt
+    - run: pytest tests/ -v --alluredir=allure-results --tb=short || true
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: allure-results-${{ matrix.python-version }}
+        path: allure-results
+        retention-days: 30
+
+  report:
+    name: Allure Report
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: allure-results-*
+    - run: mkdir -p allure-results && cp artifacts/*/allure-results/* allure-results/ 2>/dev/null || true
+    - uses: simple-elf/allure-report-action@master
+      with:
+        allure_results: allure-results
+        allure_history: allure-history
+    - uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./allure-report
         publish_branch: gh-pages
-        force_orphan: true
+        publish_dir: allure-history
