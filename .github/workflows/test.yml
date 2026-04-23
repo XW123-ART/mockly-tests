@@ -1,5 +1,8 @@
 name: CI/CD Pipeline
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ master, develop, 'feature/**' ]
@@ -86,7 +89,7 @@ jobs:
       with:
         allure_results: allure-results
         allure_history: allure-history
-    - uses: peaceiris/actions-gh-pages@v3
+    - uses: peaceiris/actions-gh-pages@v4
       if: github.ref == 'refs/heads/master'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
