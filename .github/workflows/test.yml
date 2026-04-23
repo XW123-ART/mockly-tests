@@ -84,14 +84,18 @@ jobs:
       with:
         path: artifacts
         pattern: allure-results-*
+        merge-multiple: true
     - name: Prepare Allure Results
       run: |
         mkdir -p allure-results
         echo "Artifacts directory structure:"
-        find artifacts -type f | head -20
-        cp artifacts/*/allure-results/*.json allure-results/ 2>/dev/null || true
-        echo "Allure results count:"
-        ls -la allure-results/ | wc -l
+        find artifacts -type f 2>/dev/null | head -30 || echo "No artifacts found"
+        echo "Copying allure results..."
+        cp artifacts/*.json allure-results/ 2>/dev/null || \
+        cp artifacts/allure-results*/allure-results*/*.json allure-results/ 2>/dev/null || \
+        find artifacts -name "*.json" -exec cp {} allure-results/ \; 2>/dev/null || true
+        echo "Allure results files:"
+        ls -la allure-results/
     - uses: simple-elf/allure-report-action@master
       with:
         allure_results: allure-results
