@@ -32,6 +32,12 @@ jobs:
         python-version: ['3.11', '3.12']
     steps:
     - uses: actions/checkout@v4
+      with:
+        path: mockly-tests
+    - uses: actions/checkout@v4
+      with:
+        repository: XW123-ART/mockly
+        path: mockly
     - uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
@@ -39,13 +45,29 @@ jobs:
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements.txt') }}
-    - run: pip install -r requirements.txt
-    - run: pytest tests/ -v --alluredir=allure-results --tb=short || true
+    - name: Install Mockly Service Dependencies
+      run: |
+        cd mockly
+        pip install -r requirements.txt
+    - name: Start Mockly Service
+      run: |
+        cd mockly
+        python app.py &
+        sleep 5
+        curl -s http://127.0.0.1:5000/ || (echo "Service not ready" && exit 1)
+    - name: Install Test Dependencies
+      run: |
+        cd mockly-tests
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        cd mockly-tests
+        pytest tests/ -v --alluredir=allure-results --tb=short || true
     - uses: actions/upload-artifact@v4
       if: always()
       with:
         name: allure-results-${{ matrix.python-version }}
-        path: allure-results
+        path: mockly-tests/allure-results
         retention-days: 30
 
   report:
