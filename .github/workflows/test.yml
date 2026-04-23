@@ -53,6 +53,8 @@ jobs:
         cd mockly
         pip install -r requirements.txt
     - name: Start Mockly Service
+      env:
+        LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       run: |
         cd mockly
         python app.py &
